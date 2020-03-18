@@ -23,10 +23,14 @@ public class SjtWebClient {
         System.out.println(connection.getHeaderFields().toString());
 
         InputStream inputStream = connection.getInputStream();
-        byte[] buffer = new byte[512];
+        byte[] buffer = new byte[inputStream.available() ];
         StringBuilder sb = new StringBuilder();
-        while (inputStream.read(buffer) != -1) {
-            sb.append(new String(buffer));
+        int result;
+        while ((result = inputStream.read(buffer)) != -1) {
+
+            if (result != 0) {
+                sb.append(new String(buffer));
+            }
         }
         System.out.println(sb.toString());
     }
